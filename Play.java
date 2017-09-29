@@ -64,7 +64,8 @@ public class Play {
 				}
 				break;
 			case 4:
-				show(file);
+				String s=show(file);
+				System.out.println(s);
 				break;
 			case 5:
 				mmenu();
@@ -157,16 +158,17 @@ public class Play {
 		return count;
 	}
 
-	public static void show(String file) throws Exception {
+	public static String show(String file) throws Exception {
 		ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
 		int count = 0;
+		String s="";
 		while (true) {
 			try {
 				Song s1;
 				s1 = (Song) in.readObject();
 				if (s1.state == 1) {
 					count++;
-					System.out.println(s1.toString());
+					s+=(s1.toString())+"\n";
 				}
 			} catch (EOFException e) {
 				if (count == 0) {
@@ -176,6 +178,7 @@ public class Play {
 			}
 		}
 		in.close();
+		return s;
 	}
 
 	public static String search(String file, String q) throws Exception {
